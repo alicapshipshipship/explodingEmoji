@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .emoji {
+            position: fixed;
+            font-size: 100px;
+            pointer-events: none;
+        }
+
+        .bounce-left {
+            animation: bounceLeft 5s ease-out forwards;
+        }
+
+        .bounce-right {
+            animation: bounceRight 5s ease-out forwards;
+        }
+
+        @keyframes bounceLeft {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            15% {
+                transform: translate(-200px, -300px) scale(1);
+                opacity: 1;
+            }
+            30% {
+                transform: translate(-400px, 0) scale(1);
+                opacity: 1;
+            }
+            45% {
+                transform: translate(-400px, -150px) scale(1);
+                opacity: 1;
+            }
+            60% {
+                transform: translate(-400px, 0) scale(1);
+                opacity: 1;
+            }
+            75% {
+                transform: translate(-400px, -75px) scale(1);
+                opacity: 1;
+            }
+            90% {
+                transform: translate(-400px, 0) scale(1);
+                opacity: 1;
+            }
+            95% {
+                transform: translate(-400px, -25px) scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-400px, 0) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes bounceRight {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            15% {
+                transform: translate(200px, -300px) scale(1);
+                opacity: 1;
+            }
+            30% {
+                transform: translate(400px, 0) scale(1);
+                opacity: 1;
+            }
+            45% {
+                transform: translate(400px, -150px) scale(1);
+                opacity: 1;
+            }
+            60% {
+                transform: translate(400px, 0) scale(1);
+                opacity: 1;
+            }
+            75% {
+                transform: translate(400px, -75px) scale(1);
+                opacity: 1;
+            }
+            90% {
+                transform: translate(400px, 0) scale(1);
+                opacity: 1;
+            }
+            95% {
+                transform: translate(400px, -25px) scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(400px, 0) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="button">Pop Emoji! 🎉</button>
+
+    <script>
+        const emojis = ['🎉', '✨', '💫', '⭐', '🌟', '💥', '🎈', '🎨', '🎭', '🎪'];
+        const button = document.querySelector('.button');
+        let isLeft = true;
+
+        function createEmoji(x, y) {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            // Add the appropriate direction class
+            emoji.classList.add(isLeft ? 'bounce-left' : 'bounce-right');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = x + 'px';
+            emoji.style.top = y + 'px';
+            
+            document.body.appendChild(emoji);
+            
+            // Toggle direction for next click
+            isLeft = !isLeft;
+            
+            // Remove emoji after animation
+            setTimeout(() => {
+                emoji.remove();
+            }, 5000);
+        }
+
+        button.addEventListener('click', (e) => {
+            // Create single emoji at click position
+            createEmoji(e.clientX, e.clientY);
+        });
+    </script>
+</body>
+</html>
